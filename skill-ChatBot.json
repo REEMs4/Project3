@@ -1,0 +1,253 @@
+{
+  "intents": [
+    {
+      "intent": "Order",
+      "examples": [
+        {
+          "text": "I want to order a Latte"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Welcome",
+      "examples": [
+        {
+          "text": "can I order a coffee"
+        },
+        {
+          "text": "can you take a order coffee"
+        },
+        {
+          "text": "hey I want to order a coffee"
+        },
+        {
+          "text": "hi can I order a coffee"
+        },
+        {
+          "text": "need coffee"
+        },
+        {
+          "text": "want coffee"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "ColdHot",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Cold",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Hot",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "OrderName",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "cappuccinos",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "espresso",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Latte",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Mocha",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "white mocha",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "OrderSize",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Large",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Medium",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Small",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hey, I'm a coffee bot -_-"
+              },
+              {
+                "text": "How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "multiline"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_7_1626403961429",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Okay, what do you need?"
+              },
+              {
+                "text": "Ok, what order can I take for you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Welcome",
+      "dialog_node": "node_2_1626402988052"
+    },
+    {
+      "type": "standard",
+      "title": "Cold&Hot",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Nice, your order is confirmed."
+              },
+              {
+                "text": "Thanks sir, See You soon -_-"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "multiline"
+          }
+        ]
+      },
+      "parent": "node_8_1626404275159",
+      "conditions": "@ColdHot",
+      "dialog_node": "node_6_1626404500725"
+    },
+    {
+      "type": "standard",
+      "title": "Order",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Sir, what's size you like it??"
+              },
+              {
+                "text": "*we have small, medium and large*"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "multiline"
+          }
+        ]
+      },
+      "conditions": "@OrderName",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_7_1626403961429",
+      "previous_sibling": "node_2_1626402988052"
+    },
+    {
+      "type": "standard",
+      "title": "OrderSize",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hot or Cold?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1626403961429",
+      "conditions": "@OrderSize",
+      "dialog_node": "node_8_1626404275159"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "ChatBot",
+  "language": "en",
+  "description": ""
+}
